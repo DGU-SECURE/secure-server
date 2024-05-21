@@ -1,7 +1,7 @@
-package edu.dongguk.nusinsa.entity
+package edu.dongguk.nusinsa.domain
 
-import edu.dongguk.nusinsa.entity.type.OrderState
-import edu.dongguk.nusinsa.entity.type.PaymentType
+import edu.dongguk.nusinsa.domain.type.OrderState
+import edu.dongguk.nusinsa.domain.type.PaymentType
 import jakarta.persistence.*
 import java.time.LocalDateTime
 

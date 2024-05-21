@@ -1,4 +1,4 @@
-package edu.dongguk.nusinsa.entity.type
+package edu.dongguk.nusinsa.domain.type
 
 /**
  * 의류 카테고리

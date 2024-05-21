@@ -1,6 +1,6 @@
-package edu.dongguk.nusinsa.entity
+package edu.dongguk.nusinsa.domain
 
-import edu.dongguk.nusinsa.entity.type.ItemCategory
+import edu.dongguk.nusinsa.domain.type.ItemCategory
 import jakarta.persistence.*
 
 /**
