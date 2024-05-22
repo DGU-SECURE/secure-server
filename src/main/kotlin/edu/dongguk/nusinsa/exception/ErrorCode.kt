@@ -1,5 +1,8 @@
 package edu.dongguk.nusinsa.exception
 
+/**
+ * 커스텀 에러 코드 정의, 부족한 에러 코드는 추가
+ */
 enum class ErrorCode(
     private val code: String,
     private val message: String
