@@ -39,6 +39,10 @@ class Order(
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private val customer: Customer,
+
+    @OneToOne
+    @JoinColumn(name = "point_id")
+    private val point: Point
 ) {
     /**
      * 주문 아이디
