@@ -43,4 +43,11 @@ class Customer(
 
     fun getPoint() = this.pointBalance
     fun getBalance() = this.balance
+
+    fun isEnoughPoint(point: Int) = this.pointBalance >= point
+    fun isEnoughBalance(balance: Long) = this.balance >= balance
+    fun updatePointAndBalance(point: Int, balance: Long) {
+        this.pointBalance -= point
+        this.balance -= balance
+    }
 }

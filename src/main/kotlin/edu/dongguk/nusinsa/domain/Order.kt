@@ -11,11 +11,6 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "orders")
 class Order(
-    /**
-     * 주문 상태
-     */
-    @Enumerated(EnumType.STRING)
-    private val orderState: OrderState = OrderState.DEPOSIT_CHECK,
 
     /**
      * 총 주문 금액
@@ -27,11 +22,6 @@ class Order(
      */
     @Enumerated(EnumType.STRING)
     private val paymentType: PaymentType = PaymentType.CARD,
-
-    /**
-     * 주문 시점
-     */
-    private val createdAt: LocalDateTime = LocalDateTime.now(),
 
     /**
      * 주문을 한 소비자
@@ -50,4 +40,20 @@ class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    /**
+     * 주문 상태
+     */
+    @Enumerated(EnumType.STRING)
+    private val orderState: OrderState = OrderState.DEPOSIT_CHECK
+
+    /**
+     * 주문 시점
+     */
+    private val createdAt: LocalDateTime = LocalDateTime.now()
+
+    fun getTotalPrice() = this.totalPrice
+    fun getOrderState() = this.orderState
+    fun getCreatedAt() = this.createdAt
+    fun getPaymentType() = this.paymentType
 }

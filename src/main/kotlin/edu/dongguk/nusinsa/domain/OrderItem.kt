@@ -10,11 +10,6 @@ import java.util.UUID
 @Table(name = "order_items")
 class OrderItem(
     /**
-     * 주문 번호
-     */
-    private val orderCode: String = UUID.randomUUID().toString(),
-
-    /**
      * 주문 수량
      */
     private val counts: Int,
@@ -39,4 +34,15 @@ class OrderItem(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    /**
+     * 주문 번호
+     */
+    private val orderCode: String = UUID.randomUUID().toString()
+
+    fun getId() = this.id
+    fun getOrderCode() = this.orderCode
+    fun getCounts() = this.counts
+    fun getOrder() = this.order
+    fun getItem() = this.item
 }
