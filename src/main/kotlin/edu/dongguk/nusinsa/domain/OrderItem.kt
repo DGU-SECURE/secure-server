@@ -1,6 +1,7 @@
 package edu.dongguk.nusinsa.domain
 
 import jakarta.persistence.*
+import java.util.UUID
 
 /**
  * 주문 상품
@@ -9,9 +10,14 @@ import jakarta.persistence.*
 @Table(name = "order_items")
 class OrderItem(
     /**
+     * 주문 번호
+     */
+    private val orderCode: String = UUID.randomUUID().toString(),
+
+    /**
      * 주문 수량
      */
-    private val count: Int,
+    private val counts: Int,
 
     /**
      * 상품이 속해있는 주문 내역

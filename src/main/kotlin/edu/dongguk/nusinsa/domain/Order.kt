@@ -15,7 +15,7 @@ class Order(
      * 주문 상태
      */
     @Enumerated(EnumType.STRING)
-    private val orderStatus: OrderState = OrderState.DEPOSIT_CHECK,
+    private val orderState: OrderState = OrderState.DEPOSIT_CHECK,
 
     /**
      * 총 주문 금액

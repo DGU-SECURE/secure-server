@@ -22,7 +22,7 @@ class Customer(
      * 소비자 아이디
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
 
     /**
@@ -40,4 +40,7 @@ class Customer(
      */
     @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL])
     private lateinit var points: MutableList<Point>
+
+    fun getPoint() = this.pointBalance
+    fun getBalance() = this.balance
 }
