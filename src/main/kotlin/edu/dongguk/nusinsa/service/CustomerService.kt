@@ -67,13 +67,28 @@ class CustomerService(
     }
 
     /**
-     * 주문 내역 조회
+     * 구매 내역 목록 조회
      */
     fun getOrderLogs(id: Long, page: Int, size: Int): OrderLogsDto {
+        if (!customerRepository.existsById(id))
+            throw GlobalException(ErrorCode.NOT_FOUND_CUSTOMER)
+
         val pageable: Pageable = PageRequest.of(page, size, Sort.by(DESC, "createdAt"))
         val orders = orderRepository.findByCustomerId(id, pageable)
         val orderLogDtos = orders.map { OrderLogDto.of(it) }
+
         return OrderLogsDto(orderLogDtos.toList(),
             PageInfoDto(page, size, orders.totalElements.toInt(), orders.totalPages))
+    }
+
+    /**
+     * 구매 내역 상세 조회
+     */
+    fun getDetailOrderLog(id: Long, historyId: Long): DetailOrderLogDto {
+        if (!customerRepository.existsById(id))
+            throw GlobalException(ErrorCode.NOT_FOUND_CUSTOMER)
+        val order = orderRepository.findByIdOrNull(historyId)?: throw GlobalException(ErrorCode.NOT_FOUND_ORDER)
+
+        return DetailOrderLogDto.of(order)
     }
 }

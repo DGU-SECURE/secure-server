@@ -65,4 +65,5 @@ class Order(
     fun getCreatedAt() = this.createdAt
     fun getPaymentType() = this.paymentType
     fun getOrderItems() = this.orderItems
+    fun getPoint() = this.point
 }

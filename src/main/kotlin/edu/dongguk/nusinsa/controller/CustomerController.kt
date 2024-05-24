@@ -2,11 +2,13 @@ package edu.dongguk.nusinsa.controller
 
 import edu.dongguk.nusinsa.dto.ResponseDto
 import edu.dongguk.nusinsa.dto.request.OrderItemsDto
+import edu.dongguk.nusinsa.dto.response.DetailOrderLogDto
 import edu.dongguk.nusinsa.dto.response.OrderLogsDto
 import edu.dongguk.nusinsa.dto.response.OrderedItemsDto
 import edu.dongguk.nusinsa.dto.response.PointBalanceDto
 import edu.dongguk.nusinsa.service.CustomerService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -43,5 +45,14 @@ class CustomerController(
     fun getOrderLogs(@RequestParam page: Int, @RequestParam size: Int): ResponseDto<OrderLogsDto> {
         val id: Long = 1
         return ResponseDto.success(customerService.getOrderLogs(id, page, size))
+    }
+
+    /**
+     * 구매 내역 상세 조회
+     */
+    @GetMapping("/histories/{historyId}")
+    fun getDetailOrderLogs(@PathVariable historyId: Long): ResponseDto<DetailOrderLogDto> {
+        val id: Long = 1
+        return ResponseDto.success(customerService.getDetailOrderLog(id,historyId))
     }
 }
