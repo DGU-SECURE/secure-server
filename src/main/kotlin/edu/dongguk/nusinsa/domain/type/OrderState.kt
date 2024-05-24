@@ -15,5 +15,7 @@ enum class OrderState(
     DELIVERY("배송중"),
     DELIVERY_COMPLETE("배송 완료"),
     REFUND_PROCESS("환불 처리"),
-    REFUND_COMPLETE("환불 완료")
+    REFUND_COMPLETE("환불 완료");
+
+    fun getOrderState() = this.orderState
 }

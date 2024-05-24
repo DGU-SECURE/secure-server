@@ -35,15 +35,8 @@ class Customer(
      */
     private var pointBalance: Int = 0
 
-    /**
-     * 포인트 사용 내역
-     */
-    @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL])
-    private lateinit var points: MutableList<Point>
-
     fun getPoint() = this.pointBalance
     fun getBalance() = this.balance
-
     fun isEnoughPoint(point: Int) = this.pointBalance >= point
     fun isEnoughBalance(balance: Long) = this.balance >= balance
     fun updatePointAndBalance(point: Int, balance: Long) {

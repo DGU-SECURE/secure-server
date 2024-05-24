@@ -52,8 +52,17 @@ class Order(
      */
     private val createdAt: LocalDateTime = LocalDateTime.now()
 
+    /**
+     * 주문 상품 목록
+     */
+    @OneToMany(mappedBy = "order")
+    private lateinit var orderItems: MutableList<OrderItem>
+
+    fun getId() = this.id
+
     fun getTotalPrice() = this.totalPrice
     fun getOrderState() = this.orderState
     fun getCreatedAt() = this.createdAt
     fun getPaymentType() = this.paymentType
+    fun getOrderItems() = this.orderItems
 }

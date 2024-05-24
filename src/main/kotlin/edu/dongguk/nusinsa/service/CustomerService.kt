@@ -3,15 +3,21 @@ package edu.dongguk.nusinsa.service
 import edu.dongguk.nusinsa.domain.Order
 import edu.dongguk.nusinsa.domain.OrderItem
 import edu.dongguk.nusinsa.domain.Point
+import edu.dongguk.nusinsa.domain.type.OrderState
 import edu.dongguk.nusinsa.domain.type.PointGrade
-import edu.dongguk.nusinsa.dto.response.PointBalanceDto
+import edu.dongguk.nusinsa.dto.PageInfoDto
 import edu.dongguk.nusinsa.dto.request.OrderItemsDto
-import edu.dongguk.nusinsa.dto.response.OrderedItemDto
-import edu.dongguk.nusinsa.dto.response.OrderedItemsDto
+import edu.dongguk.nusinsa.dto.response.*
 import edu.dongguk.nusinsa.exception.ErrorCode
 import edu.dongguk.nusinsa.exception.GlobalException
 import edu.dongguk.nusinsa.repository.*
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.domain.Sort.Direction
+import org.springframework.data.domain.Sort.Direction.*
+import org.springframework.data.domain.Sort.by
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -19,9 +25,9 @@ import org.springframework.stereotype.Service
 @Transactional
 class CustomerService(
     private val customerRepository: CustomerRepository,
+    private val orderRepository: OrderRepository,
     private val itemRepository: ItemRepository,
     private val pointRepository: PointRepository,
-    private val orderRepository: OrderRepository,
     private val orderItemRepository: OrderItemRepository
 ) {
     /**
@@ -45,7 +51,7 @@ class CustomerService(
         if (!customer.isEnoughBalance(orderItemsDto.totalPrice))
             throw GlobalException(ErrorCode.NOT_ENOUGH_BALANCE_ERROR)
 
-        val point = Point((orderItemsDto.totalPrice*PointGrade.BRONZE.getRatio()).toInt(),
+        val point = Point((orderItemsDto.totalPrice* PointGrade.BRONZE.getRatio()).toInt(),
             orderItemsDto.point, customer)
         val order = Order(orderItemsDto.totalPrice, orderItemsDto.paymentType, customer, point)
         val items = itemRepository.findByIds(orderItemsDto.items.map { it.itemId })
@@ -58,5 +64,16 @@ class CustomerService(
         orderRepository.save(order)
         orderItemRepository.saveAll(orderItems)
         return OrderedItemsDto.of(order, point, orderItems.map { OrderedItemDto.of(it) })
+    }
+
+    /**
+     * 주문 내역 조회
+     */
+    fun getOrderLogs(id: Long, page: Int, size: Int): OrderLogsDto {
+        val pageable: Pageable = PageRequest.of(page, size, Sort.by(DESC, "createdAt"))
+        val orders = orderRepository.findByCustomerId(id, pageable)
+        val orderLogDtos = orders.map { OrderLogDto.of(it) }
+        return OrderLogsDto(orderLogDtos.toList(),
+            PageInfoDto(page, size, orders.totalElements.toInt(), orders.totalPages))
     }
 }
