@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*
 class ItemController(
     private val itemService: ItemService
 ){
-    @GetMapping("/items/{store_id}")
+    @GetMapping("/items/{store_id}","/items")
     fun searchItems(
-        @PathVariable("store_id") storeId: Int?,
+        @PathVariable("store_id") storeId: Long?,
         @RequestParam(value = "name") name:String?,
         @RequestParam(value = "category") category:String?,
         @RequestParam(value = "page_num") pageNum:Int
