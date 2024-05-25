@@ -84,10 +84,10 @@ class CustomerService(
     /**
      * 구매 내역 상세 조회
      */
-    fun getDetailOrderLog(id: Long, historyId: Long): DetailOrderLogDto {
+    fun getDetailOrderLog(id: Long, orderId: Long): DetailOrderLogDto {
         if (!customerRepository.existsById(id))
             throw GlobalException(ErrorCode.NOT_FOUND_CUSTOMER)
-        val order = orderRepository.findByIdOrNull(historyId)?: throw GlobalException(ErrorCode.NOT_FOUND_ORDER)
+        val order = orderRepository.findByIdOrNull(orderId)?: throw GlobalException(ErrorCode.NOT_FOUND_ORDER)
 
         return DetailOrderLogDto.of(order)
     }

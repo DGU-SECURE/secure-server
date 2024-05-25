@@ -50,9 +50,9 @@ class CustomerController(
     /**
      * 구매 내역 상세 조회
      */
-    @GetMapping("/histories/{historyId}")
-    fun getDetailOrderLogs(@PathVariable historyId: Long): ResponseDto<DetailOrderLogDto> {
+    @GetMapping("/histories/{orderId}")
+    fun getDetailOrderLogs(@PathVariable orderId: Long): ResponseDto<DetailOrderLogDto> {
         val id: Long = 1
-        return ResponseDto.success(customerService.getDetailOrderLog(id,historyId))
+        return ResponseDto.success(customerService.getDetailOrderLog(id, orderId))
     }
 }
