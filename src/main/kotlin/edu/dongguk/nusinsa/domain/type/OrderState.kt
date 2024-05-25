@@ -14,6 +14,7 @@ enum class OrderState(
     RELEASE_COMPLETE("출고 완료"),
     DELIVERY("배송중"),
     DELIVERY_COMPLETE("배송 완료"),
+    REFUND_NOT_AVAILABLE("환불 불가"),
     REFUND_PROCESS("환불 처리"),
     REFUND_COMPLETE("환불 완료");
 

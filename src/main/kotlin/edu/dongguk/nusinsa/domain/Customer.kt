@@ -35,12 +35,17 @@ class Customer(
      */
     private var pointBalance: Int = 0
 
-    fun getPoint() = this.pointBalance
+    fun getPointBalance() = this.pointBalance
     fun getBalance() = this.balance
     fun isEnoughPoint(point: Int) = this.pointBalance >= point
     fun isEnoughBalance(balance: Long) = this.balance >= balance
-    fun updatePointAndBalance(point: Int, balance: Long) {
-        this.pointBalance -= point
-        this.balance -= balance
+    fun usePointAndBalance(savePoint: Int, usePoint: Int, balance: Long) {
+        this.pointBalance += savePoint - usePoint
+        this.balance += usePoint - balance
+    }
+
+    fun refund(savePoint: Int, usePoint: Int, balance: Long) {
+        this.pointBalance -= savePoint - usePoint
+        this.balance -= usePoint - balance
     }
 }

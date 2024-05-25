@@ -38,6 +38,14 @@ class Point(
      */
     private val createdAt: LocalDateTime = LocalDateTime.now()
 
+    /**
+     * 삭제 여부
+     */
+    private var isDeleted = false
+
     fun getSaveAmount() = this.saveAmount
     fun getUseAmount() = this.useAmount
+    fun deletePointLog() {
+        this.isDeleted = true
+    }
 }

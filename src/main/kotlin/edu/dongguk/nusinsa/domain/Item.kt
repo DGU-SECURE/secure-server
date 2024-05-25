@@ -59,4 +59,7 @@ class Item(
     fun orderItem(stock: Int) {
         this.stock -= stock
     }
+    fun restockItem(stock: Int) {
+        this.stock += stock
+    }
 }

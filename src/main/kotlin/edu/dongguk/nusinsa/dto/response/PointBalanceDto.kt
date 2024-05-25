@@ -8,7 +8,7 @@ data class PointBalanceDto(
 ) {
     companion object {
         fun of(customer: Customer) =
-            PointBalanceDto(customer.getPoint(),
+            PointBalanceDto(customer.getPointBalance(),
                 customer.getBalance())
     }
 }

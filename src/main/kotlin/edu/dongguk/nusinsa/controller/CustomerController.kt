@@ -2,10 +2,7 @@ package edu.dongguk.nusinsa.controller
 
 import edu.dongguk.nusinsa.dto.ResponseDto
 import edu.dongguk.nusinsa.dto.request.OrderItemsDto
-import edu.dongguk.nusinsa.dto.response.DetailOrderLogDto
-import edu.dongguk.nusinsa.dto.response.OrderLogsDto
-import edu.dongguk.nusinsa.dto.response.OrderedItemsDto
-import edu.dongguk.nusinsa.dto.response.PointBalanceDto
+import edu.dongguk.nusinsa.dto.response.*
 import edu.dongguk.nusinsa.service.CustomerService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -54,5 +51,14 @@ class CustomerController(
     fun getDetailOrderLogs(@PathVariable orderId: Long): ResponseDto<DetailOrderLogDto> {
         val id: Long = 1
         return ResponseDto.success(customerService.getDetailOrderLog(id, orderId))
+    }
+
+    /**
+     * 구매 취소
+     */
+    @PostMapping("/histories/{orderId}")
+    fun updateRefund(@PathVariable orderId: Long): ResponseDto<RefundOrderDto> {
+        val id: Long = 1
+        return ResponseDto.success(customerService.cancelOrder(id, orderId))
     }
 }
