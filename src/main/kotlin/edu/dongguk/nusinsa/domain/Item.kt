@@ -1,6 +1,7 @@
 package edu.dongguk.nusinsa.domain
 
 import edu.dongguk.nusinsa.domain.type.ItemCategory
+import edu.dongguk.nusinsa.dto.ItemDto
 import jakarta.persistence.*
 
 /**
@@ -51,4 +52,11 @@ class Item(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    fun todto() : ItemDto = ItemDto(
+        id = this.id,
+        name = this.name,
+        price = this.price,
+        thumbnail = this.image.toString()
+    )
 }
