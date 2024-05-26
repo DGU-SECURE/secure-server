@@ -23,4 +23,6 @@ interface ItemRepository : JpaRepository<Item, Long> {
     fun findAllByCategory(category: ItemCategory,paging: Pageable): Page<Item>
     fun findAllByNameContaining(name: String, paging: Pageable): Page<Item>
     fun findAllByCategoryAndNameContaining(category: ItemCategory, name: String,paging: Pageable): Page<Item>
+    @Query("SELECT i FROM Item AS i WHERE i.id in :ids")
+    fun findByIds(ids: List<Long>): List<Item>
 }

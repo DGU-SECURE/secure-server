@@ -18,13 +18,17 @@ enum class ErrorCode(
 
     // Bad Request Error
     NOT_ENOUGH_STOCK_ERROR("410", "주문하신 상품의 재고가 부족합니다."),
-    INVALID_ARGUMENT("411", "잘못된 값 입니다."),
-    WRONG_CATEGORY_ERROR("412", "알 수 없는 카테고리입니다."),
+    NOT_CHOOSE_ITEMS("411", "상품을 선택하지 않으셨습니다."),
+    INVALID_ARGUMENT("412", "잘못된 값 입니다."),
+    WRONG_CATEGORY_ERROR("413", "알 수 없는 카테고리입니다."),
     WRONG_PAYMENT_TYPE_ERROR("414", "알 수 없는 결제 수단입니다."),
     NOT_ENOUGH_BALANCE_ERROR("417", "잔고가 부족합니다."),
     NOT_ENOUGH_POINT_BALANCE_ERROR("418", "포인트 잔고가 부족합니다."),
     EMPTY_IMAGE_ERROR("419", "상품 등록시에는 반드시 이미지 파일이 등록되어야 합니다."),
     DUPLICATION_ITEM_ERROR("421", "이미 존재하는 상품입니다."),
+    NOT_ORDERED_CUSTOMER("422", "주문한 사용자가 아닙니다."),
+    REFUND_PROCESSING_ORDER("423", "환불 진행 중인 상품입니다."),
+    REFUND_NOT_AVAILABLE("424", "환불이 불가한 상품입니다."),
 
     // Security Error
 //    ACCESS_DENIED_ERROR("430", "접근 권한이 없습니다."),
