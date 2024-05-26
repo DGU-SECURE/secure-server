@@ -20,7 +20,6 @@ class StoreService (
             }
             else -> storeRepository.findByNameContaining(name)
         }
-        if (storeList.isEmpty()) throw GlobalException(ErrorCode.NOT_FOUND_STORE)
         return storeList.map(Store::todto)
 
     }
