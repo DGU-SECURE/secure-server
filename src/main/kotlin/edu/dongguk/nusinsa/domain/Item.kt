@@ -57,7 +57,7 @@ class Item(
         id = this.id,
         name = this.name,
         price = this.price,
-        thumbnail = this.image.toString()
+        thumbnail = this.image.getUuidName()
     )
     fun getId() = this.id
     fun getName() = this.name
