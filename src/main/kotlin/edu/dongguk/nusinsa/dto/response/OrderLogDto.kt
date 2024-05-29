@@ -23,7 +23,7 @@ data class OrderLogDto(
         fun of(order: Order) = OrderLogDto(
             order.getId()!!,
             order.getOrderItems().get(0).getItem().getName(),
-            order.getOrderItems().size-1,
+            order.getOrderItems().size - 1,
             order.getOrderItems().get(0).getOrderCode(),
             order.getCreatedAt().toString(),
             order.getTotalPrice(),

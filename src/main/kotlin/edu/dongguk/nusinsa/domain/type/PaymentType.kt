@@ -1,7 +1,5 @@
 package edu.dongguk.nusinsa.domain.type
 
-import com.fasterxml.jackson.annotation.JsonCreator
-
 /**
  * 상품 결제 타입
  * 포인트로만 결제했으면 POINT, 아니라면 CARD

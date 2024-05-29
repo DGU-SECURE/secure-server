@@ -44,7 +44,9 @@ class Point(
     private var isDeleted = false
 
     fun getSaveAmount() = this.saveAmount
+
     fun getUseAmount() = this.useAmount
+
     fun deletePointLog() {
         this.isDeleted = true
     }

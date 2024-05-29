@@ -19,7 +19,7 @@ data class OrderedItemsDto(
     val dataList: List<OrderedItemDto>
 ) {
     companion object {
-        fun of (order: Order, point: Point, dataList: List<OrderedItemDto>) = OrderedItemsDto(
+        fun of(order: Order, point: Point, dataList: List<OrderedItemDto>) = OrderedItemsDto(
             order.getTotalPrice(),
             point.getUseAmount(),
             point.getSaveAmount(),

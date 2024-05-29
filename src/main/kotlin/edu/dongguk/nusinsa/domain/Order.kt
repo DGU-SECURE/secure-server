@@ -64,15 +64,23 @@ class Order(
     private lateinit var orderItems: MutableList<OrderItem>
 
     fun getId() = this.id
+
     fun getTotalPrice() = this.totalPrice
+
     fun getOrderState() = this.orderState
+
     fun getCreatedAt() = this.createdAt
+
     fun getPaymentType() = this.paymentType
+
     fun getOrderItems() = this.orderItems
+
     fun getPoint() = this.point
+
     fun getCustomer() = this.customer
+
     fun updateOrderState() {
-        this.orderState = when(orderState) {
+        this.orderState = when (orderState) {
             OrderState.DEPOSIT_CHECK -> OrderState.DEPOSIT_COMPLETE
             OrderState.DEPOSIT_COMPLETE -> OrderState.RELEASE_PROCESS
             OrderState.RELEASE_PROCESS -> OrderState.RELEASE_COMPLETE
@@ -82,6 +90,7 @@ class Order(
             else -> orderState
         }
     }
+
     fun refundOrder() {
         if (arrivedAt != null && LocalDateTime.now().isAfter(this.arrivedAt!!.plusDays(7)))
             this.orderState = OrderState.REFUND_NOT_AVAILABLE

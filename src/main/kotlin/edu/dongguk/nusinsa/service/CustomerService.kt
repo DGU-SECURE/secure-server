@@ -33,7 +33,7 @@ class CustomerService(
      */
     fun getPointAndBalance(id: Long): PointBalanceDto {
         val customer = customerRepository
-            .findByIdOrNull(id)?: throw GlobalException(NOT_FOUND_CUSTOMER)
+            .findByIdOrNull(id) ?: throw GlobalException(NOT_FOUND_CUSTOMER)
         return PointBalanceDto.of(customer)
     }
 
@@ -44,7 +44,7 @@ class CustomerService(
      * 구매 수량만큼 전체 재고에서 감산
      */
     fun orderItems(id: Long, orderItemsDto: OrderItemsDto): OrderedItemsDto {
-        val customer = customerRepository.findByIdOrNull(id)?: throw GlobalException(NOT_FOUND_CUSTOMER)
+        val customer = customerRepository.findByIdOrNull(id) ?: throw GlobalException(NOT_FOUND_CUSTOMER)
         if (orderItemsDto.items.isEmpty())
             throw GlobalException(NOT_CHOOSE_ITEMS)
         if (!customer.isEnoughPoint(orderItemsDto.point))
@@ -52,14 +52,18 @@ class CustomerService(
         if (!customer.isEnoughBalance(orderItemsDto.totalPrice))
             throw GlobalException(NOT_ENOUGH_BALANCE_ERROR)
 
-        val point = Point((orderItemsDto.totalPrice* PointGrade.BRONZE.getRatio()).toInt(),
-            orderItemsDto.point, customer)
+        val point = Point(
+            (orderItemsDto.totalPrice * PointGrade.BRONZE.getRatio()).toInt(),
+            orderItemsDto.point, customer
+        )
         val order = Order(orderItemsDto.totalPrice, orderItemsDto.paymentType, customer, point)
         val items = itemRepository.findByIds(orderItemsDto.items.map { it.itemId })
         val orderItems = (items zip orderItemsDto.items).map { OrderItem(it.second.itemQuantity, order, it.first) }
         orderItems.forEach { it.getItem().orderItem(it.getCounts()) }
-        customer.usePointAndBalance(point.getSaveAmount(), point.getUseAmount(),
-            orderItemsDto.totalPrice)
+        customer.usePointAndBalance(
+            point.getSaveAmount(), point.getUseAmount(),
+            orderItemsDto.totalPrice
+        )
 
         pointRepository.save(point)
         orderRepository.save(order)
@@ -78,8 +82,10 @@ class CustomerService(
         val orders = orderRepository.findByCustomerId(id, pageable)
         val orderLogDtos = orders.map { OrderLogDto.of(it) }
 
-        return OrderLogsDto(orderLogDtos.toList(),
-            PageInfoDto(page, size, orders.totalElements.toInt(), orders.totalPages))
+        return OrderLogsDto(
+            orderLogDtos.toList(),
+            PageInfoDto(page, size, orders.totalElements.toInt(), orders.totalPages)
+        )
     }
 
     /**
@@ -88,7 +94,7 @@ class CustomerService(
     fun getDetailOrderLog(id: Long, orderId: Long): DetailOrderLogDto {
         if (!customerRepository.existsById(id))
             throw GlobalException(NOT_FOUND_CUSTOMER)
-        val order = orderRepository.findByIdOrNull(orderId)?: throw GlobalException(NOT_FOUND_ORDER)
+        val order = orderRepository.findByIdOrNull(orderId) ?: throw GlobalException(NOT_FOUND_ORDER)
 
         return DetailOrderLogDto.of(order)
     }
@@ -100,7 +106,7 @@ class CustomerService(
      * 사용자 잔고 다시 채우기
      */
     fun cancelOrder(id: Long, orderId: Long): RefundOrderDto {
-        val customer = customerRepository.findByIdOrNull(id)?: throw GlobalException(NOT_FOUND_CUSTOMER)
+        val customer = customerRepository.findByIdOrNull(id) ?: throw GlobalException(NOT_FOUND_CUSTOMER)
         val order = orderRepository.findByIdOrNull(orderId) ?: throw GlobalException(NOT_FOUND_ORDER)
 
         if (order.getCustomer() != customer)

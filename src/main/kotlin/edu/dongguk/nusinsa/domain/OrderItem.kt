@@ -40,9 +40,12 @@ class OrderItem(
      */
     private val orderCode: String = UUID.randomUUID().toString()
 
-    fun getId() = this.id
+
     fun getOrderCode() = this.orderCode
+
     fun getCounts() = this.counts
+
     fun getOrder() = this.order
+
     fun getItem() = this.item
 }
