@@ -1,5 +1,6 @@
 package edu.dongguk.nusinsa.controller
 
+import edu.dongguk.nusinsa.annotation.UserId
 import edu.dongguk.nusinsa.dto.ResponseDto
 import edu.dongguk.nusinsa.dto.request.OrderItemsDto
 import edu.dongguk.nusinsa.dto.response.*
@@ -21,8 +22,7 @@ class CustomerController(
      * 잔액 및 포인트 조회
      */
     @GetMapping("/payment")
-    fun getPointAndBalance(): ResponseDto<PointBalanceDto> {
-        val id: Long = 1
+    fun getPointAndBalance(@UserId id: Long): ResponseDto<PointBalanceDto> {
         return ResponseDto.success(customerService.getPointAndBalance(id))
     }
 
@@ -30,8 +30,7 @@ class CustomerController(
      * 상품 구매
      */
     @PostMapping("/payment")
-    fun createOrder(@RequestBody orderItemsDto: OrderItemsDto): ResponseDto<OrderedItemsDto> {
-        val id: Long = 1
+    fun createOrder(@RequestBody orderItemsDto: OrderItemsDto, @UserId id: Long): ResponseDto<OrderedItemsDto> {
         return ResponseDto.success(customerService.orderItems(id, orderItemsDto))
     }
 
@@ -39,8 +38,7 @@ class CustomerController(
      * 구매 내역 목록 조회
      */
     @GetMapping("/histories")
-    fun getOrderLogs(@RequestParam page: Int, @RequestParam size: Int): ResponseDto<OrderLogsDto> {
-        val id: Long = 1
+    fun getOrderLogs(@RequestParam page: Int, @RequestParam size: Int, @UserId id: Long): ResponseDto<OrderLogsDto> {
         return ResponseDto.success(customerService.getOrderLogs(id, page, size))
     }
 
@@ -48,8 +46,7 @@ class CustomerController(
      * 구매 내역 상세 조회
      */
     @GetMapping("/histories/{orderId}")
-    fun getDetailOrderLogs(@PathVariable orderId: Long): ResponseDto<DetailOrderLogDto> {
-        val id: Long = 1
+    fun getDetailOrderLogs(@PathVariable orderId: Long, @UserId id: Long): ResponseDto<DetailOrderLogDto> {
         return ResponseDto.success(customerService.getDetailOrderLog(id, orderId))
     }
 
@@ -57,8 +54,7 @@ class CustomerController(
      * 구매 취소
      */
     @PostMapping("/histories/{orderId}")
-    fun updateRefund(@PathVariable orderId: Long): ResponseDto<RefundOrderDto> {
-        val id: Long = 1
+    fun updateRefund(@PathVariable orderId: Long, @UserId id: Long): ResponseDto<RefundOrderDto> {
         return ResponseDto.success(customerService.cancelOrder(id, orderId))
     }
 }

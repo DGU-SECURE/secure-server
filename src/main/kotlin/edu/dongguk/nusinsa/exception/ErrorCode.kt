@@ -30,18 +30,18 @@ enum class ErrorCode(
     REFUND_PROCESSING_ORDER("423", "환불 진행 중인 상품입니다."),
     REFUND_NOT_AVAILABLE("424", "환불이 불가한 상품입니다."),
 
-    // Security Error
-//    ACCESS_DENIED_ERROR("430", "접근 권한이 없습니다."),
-//    TOKEN_INVALID_ERROR("431", "유효하지 않은 토큰입니다."),
-//    TOKEN_MALFORMED_ERROR("432", "잘못된 토큰 입니다."),
-//    TOKEN_EXPIRED_ERROR("433", "만료된 토큰입니다."),
-//    TOKEN_TYPE_ERROR("434", "잘못된 형식의 토큰 입니다."),
-//    TOKEN_UNSUPPORTED_ERROR("435", "지원되지 않는 토큰입니다."),
-//    TOKEN_UNKNOWN_ERROR("436", "토큰 에러입니다."),
+//  Security Error
+    ACCESS_DENIED_ERROR("430", "접근 권한이 없습니다."),
+    TOKEN_INVALID_ERROR("431", "유효하지 않은 토큰입니다."),
+    TOKEN_MALFORMED_ERROR("432", "잘못된 토큰 입니다."),
+    TOKEN_EXPIRED_ERROR("433", "만료된 토큰입니다."),
+    TOKEN_TYPE_ERROR("434", "잘못된 형식의 토큰 입니다."),
+    TOKEN_UNSUPPORTED_ERROR("435", "지원되지 않는 토큰입니다."),
+    TOKEN_UNKNOWN_ERROR("436", "토큰 에러입니다."),
 
     // Server Error
     SERVER_ERROR("500", "서버 내부 오류입니다."),
-    DUPLICATION_STORE("506", "이미 존재하는 매장입니다"),
+    DUPLICATION_CUSTOMER("506", "이미 존재하는 소비자입니다"),
 
     //Image Error
     IMAGE_SAVING_ERROR("510", "이미지 저장에 실패하였습니다."),
