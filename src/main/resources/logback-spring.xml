@@ -23,7 +23,8 @@
     <!-- CONSOLE에 로그 출력 세팅 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%replace([%X{CorrelationId}] ){'^\[\] $',''}%highlight(%-5level) %green(%logger{36}) - %msg%n</pattern>
+            <pattern>%replace([%X{CorrelationId}] ){'^\[\] $',''}%highlight(%-5level) %green(%logger{36}) - %msg%n
+            </pattern>
         </layout>
     </appender>
 
@@ -35,7 +36,9 @@
         <!-- 출력패턴 설정-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
-                [%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %-5level ${PID:-} --- [%15.15thread] %-40.40logger{36} : %replace(%replace(%replace(%replace(%msg){'\b(PID )\d+\b','$1****'}){'\b(port )\d{1,5}\b','$1****'}){'/Users/[^\s]+','/****'}){'started by [^\s]+ in', '*****'}%n
+                [%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %-5level ${PID:-} --- [%15.15thread] %-40.40logger{36} :
+                %replace(%replace(%replace(%replace(%msg){'\b(PID )\d+\b','$1****'}){'\b(port
+                )\d{1,5}\b','$1****'}){'/Users/[^\s]+','/****'}){'started by [^\s]+ in', '*****'}%n
             </Pattern>
         </encoder>
 
