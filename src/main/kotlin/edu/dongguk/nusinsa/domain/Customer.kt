@@ -22,7 +22,7 @@ class Customer(
      * 소비자 아이디
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
 
     /**
@@ -35,9 +35,21 @@ class Customer(
      */
     private var pointBalance: Int = 0
 
-    /**
-     * 포인트 사용 내역
-     */
-    @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL])
-    private lateinit var points: MutableList<Point>
+    fun getPointBalance() = this.pointBalance
+
+    fun getBalance() = this.balance
+
+    fun isEnoughPoint(point: Int) = this.pointBalance >= point
+
+    fun isEnoughBalance(balance: Long) = this.balance >= balance
+
+    fun usePointAndBalance(savePoint: Int, usePoint: Int, balance: Long) {
+        this.pointBalance += savePoint - usePoint
+        this.balance += usePoint - balance
+    }
+
+    fun refund(savePoint: Int, usePoint: Int, balance: Long) {
+        this.pointBalance -= savePoint - usePoint
+        this.balance -= usePoint - balance
+    }
 }

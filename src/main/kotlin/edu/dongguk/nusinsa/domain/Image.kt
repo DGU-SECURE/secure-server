@@ -31,4 +31,6 @@ class Image(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    fun getUuidName() = this.uuidName
 }

@@ -1,5 +1,6 @@
 package edu.dongguk.nusinsa.domain
 
+import edu.dongguk.nusinsa.dto.response.StoreDto
 import jakarta.persistence.*
 
 /**
@@ -36,4 +37,11 @@ class Store(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    fun toDto(): StoreDto = StoreDto(
+        storeId = this.id!!,
+        storeName = this.name
+    )
+
+    fun getName(): String = name
 }

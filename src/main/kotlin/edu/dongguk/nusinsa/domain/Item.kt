@@ -1,6 +1,7 @@
 package edu.dongguk.nusinsa.domain
 
 import edu.dongguk.nusinsa.domain.type.ItemCategory
+import edu.dongguk.nusinsa.dto.ItemDto
 import jakarta.persistence.*
 
 /**
@@ -17,7 +18,7 @@ class Item(
     /**
      * 상품 가격
      */
-    private var price: Int,
+    private var price: Long,
 
     /**
      * 재고
@@ -43,7 +44,7 @@ class Item(
      */
     @ManyToOne
     @JoinColumn(name = "store_id")
-    private val store: Store
+    private val store: Store,
 ) {
     /**
      * 상품 아이디
@@ -51,4 +52,27 @@ class Item(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    fun todto(): ItemDto = ItemDto(
+        id = this.id,
+        name = this.name,
+        price = this.price,
+        thumbnail = this.image.getUuidName()
+    )
+
+    fun getId() = this.id
+
+    fun getName() = this.name
+
+    fun getImage() = this.image
+
+    fun getPrice() = this.price
+
+    fun orderItem(stock: Int) {
+        this.stock -= stock
+    }
+
+    fun restockItem(stock: Int) {
+        this.stock += stock
+    }
 }

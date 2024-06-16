@@ -20,11 +20,6 @@ class Point(
     private val useAmount: Int,
 
     /**
-     * 포인트 적립 시기
-     */
-    private val createdAt: LocalDateTime = LocalDateTime.now(),
-
-    /**
      * 포인트가 적립되는 소비자
      */
     @ManyToOne
@@ -37,4 +32,22 @@ class Point(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null
+
+    /**
+     * 포인트 적립 시기
+     */
+    private val createdAt: LocalDateTime = LocalDateTime.now()
+
+    /**
+     * 삭제 여부
+     */
+    private var isDeleted = false
+
+    fun getSaveAmount() = this.saveAmount
+
+    fun getUseAmount() = this.useAmount
+
+    fun deletePointLog() {
+        this.isDeleted = true
+    }
 }
