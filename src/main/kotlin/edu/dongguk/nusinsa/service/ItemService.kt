@@ -27,8 +27,8 @@ class ItemService(
     @Transactional(readOnly = true)
     fun findItems(
         storeId: Long?,
-        name: String?,
-        category: String?,
+        name: String,
+        category: String,
         pageNum: Int
     ): ListResponseDto {
         // pagenum - 현재 페이지 번호, pageSize - 고정 item 개수 8개
@@ -36,7 +36,7 @@ class ItemService(
         val itemList: Page<Item> = when {
             storeId != null -> {
                 when {
-                    name != null && category != null -> {
+                    name != "" && category != ""-> {
                         val itemCategory: ItemCategory = try {
                             ItemCategory.valueOf(category)
                         } catch (e: IllegalArgumentException) {
@@ -45,11 +45,11 @@ class ItemService(
                         itemRepository.findAllByStoreIdAndCategoryAndNameContaining(storeId, itemCategory, name, paging)
                     }
 
-                    name != null -> {
+                    name != ""  -> {
                         itemRepository.findAllByStoreIdAndNameContaining(storeId, name, paging)
                     }
 
-                    category != null -> {
+                    category != "" -> {
                         val itemCategory: ItemCategory = try {
                             ItemCategory.valueOf(category)
                         } catch (e: IllegalArgumentException) {
@@ -64,14 +64,14 @@ class ItemService(
                 }
             }
 
-            category != null -> {
+            category != "" -> {
                 val itemCategory: ItemCategory = try {
                     ItemCategory.valueOf(category)
                 } catch (e: IllegalArgumentException) {
                     throw GlobalException(ErrorCode.WRONG_CATEGORY_ERROR)
                 }
                 when {
-                    name != null -> {
+                    name != "" -> {
                         itemRepository.findAllByCategoryAndNameContaining(itemCategory, name, paging)
                     }
 
@@ -81,7 +81,7 @@ class ItemService(
                 }
             }
 
-            name != null -> {
+            name != "" -> {
                 itemRepository.findAllByNameContaining(name, paging)
             }
 
