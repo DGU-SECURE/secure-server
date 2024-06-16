@@ -1,29 +1,26 @@
 package edu.dongguk.nusinsa.config
 
+import edu.dongguk.nusinsa.security.UserIdArgumentResolver
+import edu.dongguk.nusinsa.security.UserIdInterceptor
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.method.support.HandlerMethodArgumentResolver
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-/**
- * Cors 처리
- * 모든 URL에 대해
- * 3000, 3002번 포트 접근 허용
- * 모든 HTTP 메서드 허용
- * 모든 헤더 허용
- */
 @Configuration
-class WebMvcConfig : WebMvcConfigurer {
-    override fun addCorsMappings(registry: CorsRegistry) {
-        registry.addMapping("/**")
-            .allowedOrigins(
-                "http://localhost:3000",
-                "https://localhost:3000",
-                "http://localhost:3002",
-                "https://localhost:3002"
-            )
-            .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-            .allowedHeaders("*")
-            .exposedHeaders("*")
-        super.addCorsMappings(registry)
+class WebMvcConfig (
+    private val userIdArgumentResolver: UserIdArgumentResolver,
+    private val userIdInterceptor: UserIdInterceptor
+) : WebMvcConfigurer {
+
+    override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
+        resolvers.add(userIdArgumentResolver)
     }
+
+    override fun addInterceptors(registry: InterceptorRegistry) {
+        registry.addInterceptor(userIdInterceptor)
+            .addPathPatterns("/**")
+            .excludePathPatterns("/", "/api/v1/auth/**")
+    }
+
 }
